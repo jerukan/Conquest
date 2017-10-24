@@ -1,0 +1,4 @@
+INFORMATION ABOUT GAMEOBJECT SPRITES
+
+units are 16x16 pixels
+preferably

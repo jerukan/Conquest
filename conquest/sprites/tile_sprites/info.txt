@@ -1,0 +1,4 @@
+INFORMATION ABOUT BOARD TILE SPRITES
+
+tile sprites are 48x48 pixels
+preferably

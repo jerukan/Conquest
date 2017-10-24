@@ -1,0 +1,21 @@
+=======
+HISTORY
+=======
+
+Current changes
+--------------
+* refined button clicking more
+* UI classes refactored and organized
+* teams actually do stuff now
+* unit move display somehow works after jank fix
+* actual turn based "gameplay"
+    * combat kind of works now
+
+
+10/6/17 (lmao procrastination)
+-----------------------------
+* unit move display (still buggy)
+* unit building
+* buttons
+* ui classes
+* a bit more polishing
