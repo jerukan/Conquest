@@ -1,8 +1,6 @@
-from gameobjects.unit_list import UnitList
 from gameobjects.units.unit_info import UnitInfo
 from util.constants import Constants
 from util.ui.baseinterface import BaseInterface
-from util.ui.commands import Commands
 
 from .endturnbutton import EndTurnButton
 from .unitbuildbutton import UnitBuildButton
@@ -19,6 +17,7 @@ class GameInterface(BaseInterface):
         EndTurnButton(890, 800)
     ]
 
+    # TODO auto add all the units
     unitButtons = [
         UnitBuildButton(30, Constants.WINDOWHEIGHT - Constants.UNITBUTTONHEIGHT - 10, UnitInfo.spearman),
         UnitBuildButton(170, Constants.WINDOWHEIGHT - Constants.UNITBUTTONHEIGHT - 10, UnitInfo.footman),
@@ -58,30 +57,14 @@ class GameInterface(BaseInterface):
                 self.currentButton = None
                 self.commands["endTurn"] = False
                 return "endTurn"
+
             if self.commands["build"]:
                 if blankclick:
                     self.currentButton = None
                     self.commands["build"] = False
                 elif board.currentSelection is not None and not board.tileOccupied(board.currentSelection):
-                    if self.currentButton.unitname in UnitList.soldierList:
-                        for unit in UnitInfo.soldiers:
-                            if self.currentButton.unitname == unit["name"]:
-                                if not team.money - unit["stats"][5] < 0:
-                                    if board.currentSelection.position in board.buildmoves:
-                                        self.commandlist.commandBuild(UnitList.soldierList[self.currentButton.unitname], team, board.currentSelection.position, board.unitlist)
-                                        team.deductMoney(unit["stats"][5])
+                    self.commandlist.commandBuild(board, self.currentButton, team, board.currentSelection.position)
 
-                    else:
-                        for unit in UnitInfo.buildings:
-                            if self.currentButton.unitname == unit["name"]:
-                                if not team.money - unit["stats"][5] < 0:
-                                    if board.currentSelection.position in board.buildmoves:
-                                        self.commandlist.commandBuild(UnitList.buildingList[self.currentButton.unitname], team, board.currentSelection.position, board.unitlist)
-                                        team.deductMoney(unit["stats"][5])
-                                        team.updateUnitlist(board.unitlist)
-                                        board.getBuildMoves(team.getBuildings())
-
-                    board.unitlist[len(board.unitlist) - 1].onCreation()
                     self.currentButton = None
                     self.commands["build"] = False
                 return "build"

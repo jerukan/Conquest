@@ -17,20 +17,20 @@ class GameUnit:
     :parameter sprite (Surface): the sprite of the unit, preferably pixel art
     """
 
-    def __init__(self, name, stats, unittype, sprite, team=None, position=None):
-        self.name = name
+    def __init__(self, unitinfo, sprite, team=None, position=None):
+        self.name = unitinfo["name"]
 
-        self.maxHealth = stats[0]
+        self.maxHealth = unitinfo["stats"][0]
         self.currentHealth = self.maxHealth
-        self.attack = stats[1]
-        self.speed = stats[2]
+        self.attack = unitinfo["stats"][1]
+        self.speed = unitinfo["stats"][2]
         self.currentSpeed = self.speed
-        self.attacksPerTurn = stats[3]
+        self.attacksPerTurn = unitinfo["stats"][3]
         self.availableAttacks = self.attacksPerTurn
-        self.range = stats[4]
-        self.cost = stats[5]
+        self.range = unitinfo["stats"][4]
+        self.cost = unitinfo["stats"][5]
 
-        self.unittype = unittype
+        self.unittype = unitinfo["type"]
 
         self.sprite = sprite
         self.spriteRect = sprite.get_rect()
@@ -96,11 +96,11 @@ class GameUnit:
 
         Window.SURFACE.blit(self.sprite, self.spriteRect)
         Window().displayText("Health: " + str(self.currentHealth) + "/" + str(self.maxHealth), tileRect.x + 5, tileRect.y + 5, 20)
-        if self.unittype == self.UnitType.SOLDIER:
+        if self.unittype == UnitType.SOLDIER:
             Window().displayText("Speed: " + str(self.currentSpeed) + "/" + str(self.speed), tileRect.bottomleft[0] + 5, tileRect.bottomleft[1] - 15, 20)
 
 
-    class UnitType(Enum):
+class UnitType(Enum):
 
-        SOLDIER = 1
-        BUILDING = 2
+    SOLDIER = 1
+    BUILDING = 2

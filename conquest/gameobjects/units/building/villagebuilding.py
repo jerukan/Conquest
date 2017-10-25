@@ -10,4 +10,4 @@ class VillageBuilding(GameUnit):
     """
 
     def __init__(self, team, position):
-        GameUnit.__init__(self, UnitInfo.village.get("name"), UnitInfo.village.get("stats"), self.UnitType.BUILDING, SpriteManager.village_sprite, team, position)
+        GameUnit.__init__(self, UnitInfo.village, SpriteManager.village_sprite, team, position)

@@ -36,6 +36,7 @@ class Constants:
     '''Gameplay constants'''
     MAX_TEAMS = 4
 
+    # all the positions a unit away from the corners, ordered diagonally for reasons
     VILLAGE_START_POSITIONS = [[1, 1], [BOARDHEIGHT - 2, BOARDWIDTH - 2], [BOARDHEIGHT - 2, 1], [1, BOARDWIDTH - 2]]
 
     DEFAULT_STARTING_MONEY = 3

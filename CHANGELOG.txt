@@ -2,10 +2,11 @@
 HISTORY
 =======
 
-Current changes
+10/24/17
 --------------
 * refined button clicking more
 * UI classes refactored and organized
+* unit stats and lists redone and probably way better now
 * teams actually do stuff now
 * unit move display somehow works after jank fix
 * actual turn based "gameplay"

@@ -4,8 +4,8 @@ class BaseInterface:
 
     commandlist = Commands()
     currentButton = None
-    buttons = []    # list of all the buttons for an interface
-    commands = {}   # dictionary with all the strings corresponding to commands
+    buttons = []    # list of all the buttons for an interface (likely grouped into different cool stuff)
+    commands = {}   # dictionary with all the strings corresponding to commands, and whether they're running
 
 
     def blankClick(self, mouseposition, mousepressed):

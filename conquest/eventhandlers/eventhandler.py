@@ -2,6 +2,7 @@ import pygame, sys
 from pygame.locals import *
 
 from eventhandlers.uihandler import UIHandler
+from gameobjects.unit_lists import UnitList
 from util.ui import *
 from util.board_util.board import Board
 from util.window import Window
@@ -38,6 +39,7 @@ class EventHandler:
 
 
     def resetGame(self):
+        UnitList().initLists()
         self.board.generateBoard()
         self.uihandler.setInterface(GameInterface())
         for i in range(0, len(self.teamList)):
@@ -57,7 +59,7 @@ class EventHandler:
     def turnStartActions(self, team):
         self.board.resetUnitActions()
         team.updateUnitlist(self.board.unitlist)
-        self.board.getBuildMoves(team.getBuildings())
+        self.board.getBuildMoves(team.buildinglist)
         team.produceMoney()
         for unit in self.board.unitlist:
             unit.onTurnStart()

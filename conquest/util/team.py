@@ -1,4 +1,6 @@
 import copy
+
+from gameobjects.units.gameunit import UnitType
 from util.constants import Constants
 
 
@@ -15,6 +17,8 @@ class Team:
 
         '''pretty cool stuff i guess'''
         self.unitlist = []
+        self.soldierlist = []
+        self.buildinglist = []
 
         self.money = Constants.DEFAULT_STARTING_MONEY
         self.moneyProduction = Constants.DEFAULT_MONEY_PRODUCTION
@@ -27,12 +31,14 @@ class Team:
                 templist.append(unit)
 
         self.unitlist = copy.deepcopy(templist)
+        self.soldierlist = self.getSoldiers()
+        self.buildinglist = self.getBuildings()
 
 
     def getSoldiers(self):
         templist = []
         for unit in self.unitlist:
-            if unit.unittype == unit.UnitType.SOLDIER:
+            if unit.unittype == UnitType.SOLDIER:
                 templist.append(unit)
         return templist
 
@@ -40,7 +46,7 @@ class Team:
     def getBuildings(self):
         templist = []
         for unit in self.unitlist:
-            if unit.unittype == unit.UnitType.BUILDING:
+            if unit.unittype == UnitType.BUILDING:
                 templist.append(unit)
         return templist
 

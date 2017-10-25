@@ -122,6 +122,7 @@ class Board:
         if targettile.position in self.unitmoves:
             unit.currentSpeed -= (abs(targettile.position[0] - unit.position[0]) + abs(targettile.position[1] - unit.position[1]))
             unit.position = [targettile.position[0], targettile.position[1]]
+        self.selectedUnit = None
         self.removeTileSelection()
         self.clearMoves()
         self.currentSelection = None
@@ -229,7 +230,8 @@ class Board:
             poslist = self.getAdjacentTiles(building.position, 1)
             for pos in poslist:
                 if not self.tileOccupied(self.boardtiles[pos[0]][pos[1]]):
-                    self.buildmoves.append(pos)
+                    if pos not in self.buildmoves:
+                        self.buildmoves.append(pos)
 
 
     '''event functions'''
@@ -287,7 +289,7 @@ class Board:
                     self.boardtiles[height][width].highlight('transparentblue')
 
         for move in self.buildmoves:
-            self.boardtiles[move[0]][move[1]].highlight('transparentblue')
+            self.boardtiles[move[0]][move[1]].highlight('transparentlightblue')
 
         self.displayUnitMoves()
         self.displayUnits()
