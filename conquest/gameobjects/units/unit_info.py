@@ -34,13 +34,19 @@ class UnitInfo:
     goldmine = {
         "name": "gold mine",
         "type": UnitType.BUILDING,
-        "stats": [3, 0, 0, 0, 0, 4],
+        "stats": [3, 0, 0, 0, 0, 5],
         "buildable": True
     }
     wall = {
         "name": "wall",
         "type": UnitType.BUILDING,
         "stats": [4, 0, 0, 0, 0, 3],
+        "buildable": True
+    }
+    farm = {
+        "name": "farm",
+        "type": UnitType.BUILDING,
+        "stats": [3, 0, 0, 0, 0, 4],
         "buildable": True
     }
 
@@ -51,5 +57,6 @@ class UnitInfo:
         "archer": archer,
         "village": village,
         "gold mine": goldmine,
-        "wall": wall
+        "wall": wall,
+        "farm": farm
     }

@@ -16,7 +16,7 @@ class Constants:
 
     BACKGROUNDCOLOR = Colors.colorlist['white']
 
-    TILESIZE = 120  # pixels
+    TILESIZE = 110  # pixels
 
     UNITBUTTONWIDTH = 130
     UNITBUTTONHEIGHT = 90
@@ -31,7 +31,7 @@ class Constants:
     WINDOWWIDTH = (BOARDWIDTH * TILESIZE) + (MARGINSIZE * 2)
     WINDOWHEIGHT = (BOARDHEIGHT * TILESIZE) + (MARGINSIZE * 2) + 100
 
-    FPS = 30
+    FPS = 60
 
     '''Gameplay constants'''
     MAX_TEAMS = 4
@@ -41,5 +41,6 @@ class Constants:
 
     DEFAULT_STARTING_MONEY = 3
     DEFAULT_MONEY_PRODUCTION = 1
+    DEFAULT_MAX_UNITS = 3
 
     GOLDMINE_PRODUCTION = 2

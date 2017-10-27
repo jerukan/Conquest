@@ -24,6 +24,11 @@ class Board:
 
     buildmoves = []
 
+    topBorder = 0
+    bottomBorder = 0
+    leftBorder = 0
+    rightBorder = 0
+
     previousSelection = None
     currentSelection = None
 
@@ -46,6 +51,11 @@ class Board:
                 widthpixel += Constants.TILESIZE
             widthpixel = Constants.MARGINSIZE
             heightpixel += Constants.TILESIZE
+
+        self.leftBorder = self.boardtiles[0][0].rect.left
+        self.topBorder = self.boardtiles[0][0].rect.top
+        self.rightBorder = self.boardtiles[Constants.BOARDHEIGHT - 1][Constants.BOARDWIDTH - 1].rect.right
+        self.bottomBorder = self.boardtiles[Constants.BOARDHEIGHT - 1][Constants.BOARDWIDTH - 1].rect.bottom
 
 
     # actually gets what you click
@@ -250,11 +260,10 @@ class Board:
                     if not self.tileOccupied(self.currentSelection):
                         if self.currentSelection.position in self.unitmoves:
                             self.moveUnit(self.selectedUnit, self.currentSelection)
-                            self.getBuildMoves(team.getBuildings())
                     else:
                         if self.currentSelection.position in self.unitattacks:
                             self.unitAction(self.selectedUnit, self.currentSelection)
-                            self.getBuildMoves(team.getBuildings())
+                    self.getBuildMoves(team.getBuildings())
 
         self.killUnits()
 
@@ -264,8 +273,7 @@ class Board:
     def displayUnits(self):
         for i in range(0, len(self.unitlist)):
             unitposition = self.unitlist[i].position
-            self.unitlist[i].displayUnit(self.boardtiles[unitposition[0]][unitposition[1]].model)
-
+            self.unitlist[i].displayUnit(self.boardtiles[unitposition[0]][unitposition[1]].rect)
 
 
     def displayUnitMoves(self):
@@ -280,13 +288,13 @@ class Board:
         for height in range(0, len(self.boardtiles)):
             for width in range(0, len(self.boardtiles[0])):
                 self.boardtiles[height][width].displayTile()
-                pygame.draw.rect(Window.SURFACE, Colors.colorlist['black'], self.boardtiles[height][width].model, 2)
+                #pygame.draw.rect(Window.SURFACE, Colors.colorlist['black'], self.boardtiles[height][width].rect, 2)
 
-                if not self.boardtiles[height][width].isHovered(mousepos) and self.boardtiles[height][width].selected:
-                    self.boardtiles[height][width].highlight('transparentlightblue')
+        selectWidth = int((mousepos[0] - self.leftBorder) / Constants.TILESIZE)
+        selectHeight = int((mousepos[1] - self.topBorder) / Constants.TILESIZE)
 
-                elif self.boardtiles[height][width].isHovered(mousepos):
-                    self.boardtiles[height][width].highlight('transparentblue')
+        if selectWidth >= 0 and Constants.BOARDWIDTH > 0 <= selectHeight < Constants.BOARDHEIGHT:
+            self.boardtiles[selectHeight][selectWidth].highlight("transparentblue")
 
         for move in self.buildmoves:
             self.boardtiles[move[0]][move[1]].highlight('transparentlightblue')

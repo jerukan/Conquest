@@ -15,7 +15,8 @@ class UnitList:
         "archer": ArcherUnit,
         "village": VillageBuilding,
         "gold mine": GoldmineBuilding,
-        "wall": Walltroll
+        "wall": Walltroll,
+        "farm": FarmBuilding
     }
 
     # sorts all the unorganized shit into more organized shit
@@ -33,4 +34,4 @@ class UnitList:
             if UnitInfo.allUnitInfo[unit]["type"] == UnitType.BUILDING:
                 self.soldiers.append(unit)
                 if UnitInfo.allUnitInfo[unit]["buildable"]:
-                    self.buildableSoldiers.append(unit)
+                    self.buildableBuildings.append(unit)

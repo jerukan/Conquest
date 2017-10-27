@@ -6,7 +6,7 @@ from gameobjects.unit_lists import UnitList
 from util.ui import *
 from util.board_util.board import Board
 from util.window import Window
-from util.team import Team
+from util.player import Player
 from util.constants import Constants
 
 from gameobjects.units import *
@@ -28,8 +28,8 @@ class EventHandler:
         self.currentCommand = None
 
         self.teamList = [
-            Team(1, "red"),
-            Team(2, "blue")
+            Player(1, "red"),
+            Player(2, "blue")
         ]
 
         self.mousepos = []

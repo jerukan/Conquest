@@ -28,3 +28,4 @@ class SpriteManager:
     village_sprite = pygame.transform.scale(pygame.image.load("sprites/unit_sprites/village.bmp"), (int(Constants.TILESIZE * Constants.UNITSCALESIZE), int(Constants.TILESIZE * Constants.UNITSCALESIZE)))
     wall_sprite = pygame.transform.scale(pygame.image.load("sprites/unit_sprites/wall.bmp"), (int(Constants.TILESIZE * Constants.UNITSCALESIZE), int(Constants.TILESIZE * Constants.UNITSCALESIZE)))
     goldmine_sprite = pygame.transform.scale(pygame.image.load("sprites/unit_sprites/goldmine.bmp"), (int(Constants.TILESIZE * Constants.UNITSCALESIZE), int(Constants.TILESIZE * Constants.UNITSCALESIZE)))
+    farm_sprite = pygame.transform.scale(pygame.image.load("sprites/unit_sprites/farm.bmp"), (int(Constants.TILESIZE * Constants.UNITSCALESIZE), int(Constants.TILESIZE * Constants.UNITSCALESIZE)))

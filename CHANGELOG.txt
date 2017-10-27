@@ -2,8 +2,13 @@
 HISTORY
 =======
 
+Current
+------
+* players
+
+
 10/24/17
---------------
+-------
 * refined button clicking more
 * UI classes refactored and organized
 * unit stats and lists redone and probably way better now

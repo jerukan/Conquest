@@ -14,7 +14,7 @@ class GameInterface(BaseInterface):
     }
 
     buttons = [
-        EndTurnButton(890, 800)
+        EndTurnButton(890, Constants.WINDOWHEIGHT - Constants.UNITBUTTONHEIGHT - 10)
     ]
 
     # TODO auto add all the units
@@ -23,7 +23,8 @@ class GameInterface(BaseInterface):
         UnitBuildButton(170, Constants.WINDOWHEIGHT - Constants.UNITBUTTONHEIGHT - 10, UnitInfo.footman),
         UnitBuildButton(310, Constants.WINDOWHEIGHT - Constants.UNITBUTTONHEIGHT - 10, UnitInfo.archer),
         UnitBuildButton(450, Constants.WINDOWHEIGHT - Constants.UNITBUTTONHEIGHT - 10, UnitInfo.wall),
-        UnitBuildButton(590, Constants.WINDOWHEIGHT - Constants.UNITBUTTONHEIGHT - 10, UnitInfo.goldmine)
+        UnitBuildButton(590, Constants.WINDOWHEIGHT - Constants.UNITBUTTONHEIGHT - 10, UnitInfo.goldmine),
+        UnitBuildButton(730, Constants.WINDOWHEIGHT - Constants.UNITBUTTONHEIGHT - 10, UnitInfo.farm)
     ]
 
 
@@ -51,7 +52,7 @@ class GameInterface(BaseInterface):
                 #return
 
 
-    def runCommands(self, team, board, mousepressed, blankclick):
+    def runCommands(self, player, board, mousepressed, blankclick):
         if mousepressed:
             if self.commands["endTurn"]:
                 self.currentButton = None
@@ -63,7 +64,9 @@ class GameInterface(BaseInterface):
                     self.currentButton = None
                     self.commands["build"] = False
                 elif board.currentSelection is not None and not board.tileOccupied(board.currentSelection):
-                    self.commandlist.commandBuild(board, self.currentButton, team, board.currentSelection.position)
+                    player.updateUnitlist(board.unitlist)
+
+                    self.commandlist.commandBuild(board, self.currentButton, player, board.currentSelection.position)
 
                     self.currentButton = None
                     self.commands["build"] = False

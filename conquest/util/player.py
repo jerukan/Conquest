@@ -4,7 +4,7 @@ from gameobjects.units.gameunit import UnitType
 from util.constants import Constants
 
 
-class Team:
+class Player:
     """
     Contains stats and everything needed for a player of the game
     ree ree ree
@@ -22,6 +22,7 @@ class Team:
 
         self.money = Constants.DEFAULT_STARTING_MONEY
         self.moneyProduction = Constants.DEFAULT_MONEY_PRODUCTION
+        self.maxUnits = Constants.DEFAULT_MAX_UNITS
 
 
     def updateUnitlist(self, units):
@@ -30,7 +31,7 @@ class Team:
             if unit.team == self:
                 templist.append(unit)
 
-        self.unitlist = copy.deepcopy(templist)
+        self.unitlist = templist
         self.soldierlist = self.getSoldiers()
         self.buildinglist = self.getBuildings()
 

@@ -18,7 +18,7 @@ class Tile:
     """
 
     def __init__(self, xpos, ypos, position):
-        self.model = pygame.Rect((xpos, ypos), (Constants.TILESIZE, Constants.TILESIZE))
+        self.rect = pygame.Rect((xpos, ypos), (Constants.TILESIZE, Constants.TILESIZE))
 
         self.tileSprite = SpriteManager.tileList[random.randint(0, len(SpriteManager.tileList) - 1)]
         self.selected = False
@@ -27,15 +27,15 @@ class Tile:
 
 
     def isHovered(self, mousepos):
-        return self.model.collidepoint(mousepos[0], mousepos[1])
+        return self.rect.collidepoint(mousepos[0], mousepos[1])
 
 
     def highlight(self, color):
-        highlightSurface = pygame.Surface((self.model.width, self.model.height))
+        highlightSurface = pygame.Surface((self.rect.width, self.rect.height))
         highlightSurface = highlightSurface.convert_alpha()
         highlightSurface.fill(Colors.colorlist[color])
-        Window.SURFACE.blit(highlightSurface, self.model.topleft)
+        Window.SURFACE.blit(highlightSurface, self.rect.topleft)
 
 
     def displayTile(self):
-        Window.SURFACE.blit(self.tileSprite, self.model)
+        Window.SURFACE.blit(self.tileSprite, self.rect)
