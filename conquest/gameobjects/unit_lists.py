@@ -15,8 +15,9 @@ class UnitList:
         "archer": ArcherUnit,
         "village": VillageBuilding,
         "gold mine": GoldmineBuilding,
-        "wall": Walltroll,
-        "farm": FarmBuilding
+        "farm": FarmBuilding,
+        "armory": ArmoryBuilding,
+        "mage tower": MagetowerBuilding
     }
 
     # sorts all the unorganized shit into more organized shit

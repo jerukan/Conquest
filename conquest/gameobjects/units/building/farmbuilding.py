@@ -1,5 +1,6 @@
 from gameobjects.units.gameunit import GameUnit
 from gameobjects.units.unit_info import UnitInfo
+from util.constants import Constants
 from util.spritemanager import SpriteManager
 
 
@@ -10,8 +11,8 @@ class FarmBuilding(GameUnit):
 
 
     def onCreation(self):
-        self.team.maxUnits += 3
+        self.team.maxUnits += Constants.FARM_UNIT_EXPANSION
 
 
     def onDeath(self):
-        self.team.maxUnits -= 3
+        self.team.maxUnits -= Constants.FARM_UNIT_EXPANSION

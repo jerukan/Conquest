@@ -13,7 +13,8 @@ class Colors:
         'transparentlightgreen': (0, 255, 110, 128),
         'transparentblue': (5, 80, 219, 128),
         'transparentlightblue': (100, 150, 255, 128),
-        'transparentred': (255, 50, 50, 128)
+        'transparentred': (255, 50, 50, 128),
+        'transparentturqoise': (20, 150, 190, 128)
     }
 
     teamcolors = {

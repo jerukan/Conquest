@@ -39,23 +39,23 @@ class Board:
     def generateBoard(self):
         self.boardtiles = []
         self.unitlist = []
-        for i in range(0, Constants.BOARDHEIGHT):
+        for i in range(0, Constants.BOARD_HEIGHT):
             self.boardtiles.append([])
 
-        heightpixel = Constants.MARGINSIZE
-        widthpixel = Constants.MARGINSIZE
+        heightpixel = Constants.TOP_MARGIN_SIZE
+        widthpixel = Constants.LEFT_MARGIN_SIZE
 
-        for height in range(0, Constants.BOARDHEIGHT):
-            for width in range(0, Constants.BOARDWIDTH):
+        for height in range(0, Constants.BOARD_HEIGHT):
+            for width in range(0, Constants.BOARD_WIDTH):
                 self.boardtiles[height].append(Tile(widthpixel, heightpixel, [height, width]))
-                widthpixel += Constants.TILESIZE
-            widthpixel = Constants.MARGINSIZE
-            heightpixel += Constants.TILESIZE
+                widthpixel += Constants.TILE_SIZE
+            widthpixel = Constants.LEFT_MARGIN_SIZE
+            heightpixel += Constants.TILE_SIZE
 
         self.leftBorder = self.boardtiles[0][0].rect.left
         self.topBorder = self.boardtiles[0][0].rect.top
-        self.rightBorder = self.boardtiles[Constants.BOARDHEIGHT - 1][Constants.BOARDWIDTH - 1].rect.right
-        self.bottomBorder = self.boardtiles[Constants.BOARDHEIGHT - 1][Constants.BOARDWIDTH - 1].rect.bottom
+        self.rightBorder = self.boardtiles[Constants.BOARD_HEIGHT - 1][Constants.BOARD_WIDTH - 1].rect.right
+        self.bottomBorder = self.boardtiles[Constants.BOARD_HEIGHT - 1][Constants.BOARD_WIDTH - 1].rect.bottom
 
 
     # actually gets what you click
@@ -101,11 +101,11 @@ class Board:
     def getAdjacentTiles(self, tilepos, distance):
         adjacent = []
         for i in range(1, distance + 1):
-            if tilepos[0] + i < Constants.BOARDHEIGHT:
+            if tilepos[0] + i < Constants.BOARD_HEIGHT:
                 adjacent.append([tilepos[0] + i, tilepos[1]])
             if tilepos[0] - i >= 0:
                 adjacent.append([tilepos[0] - i, tilepos[1]])
-            if tilepos[1] + i < Constants.BOARDWIDTH:
+            if tilepos[1] + i < Constants.BOARD_WIDTH:
                 adjacent.append([tilepos[0], tilepos[1] + i])
             if tilepos[1] - i >= 0:
                 adjacent.append([tilepos[0], tilepos[1] - i])
@@ -161,6 +161,7 @@ class Board:
     def killUnits(self):
         for i in self.unitlist:
             if i.currentHealth <= 0:
+                i.onDeath()
                 self.unitlist.remove(i)
 
 
@@ -195,19 +196,20 @@ class Board:
         if tilepos in self.unitmoves:
             self.unitmoves.remove(tilepos)
         if self.tileOccupied(self.boardtiles[tilepos[0]][tilepos[1]]) and tilepos != unit.position:
-            return
-        self.unitmoves.append(tilepos)
+            pass
+        else:
+            self.unitmoves.append(tilepos)
         if availablemoves == 0:
             return
 
 
         availablemoves -= 1
 
-        if tilepos[0] + 1 < Constants.BOARDHEIGHT:
+        if tilepos[0] + 1 < Constants.BOARD_HEIGHT:
             self.getUnitMoves(unit, [tilepos[0] + 1, tilepos[1]], availablemoves)
         if tilepos[0] - 1 >= 0:
             self.getUnitMoves(unit, [tilepos[0] - 1, tilepos[1]], availablemoves)
-        if tilepos[1] + 1 < Constants.BOARDWIDTH:
+        if tilepos[1] + 1 < Constants.BOARD_WIDTH:
             self.getUnitMoves(unit, [tilepos[0], tilepos[1] + 1], availablemoves)
         if tilepos[1] - 1 >= 0:
             self.getUnitMoves(unit, [tilepos[0], tilepos[1] - 1], availablemoves)
@@ -216,19 +218,17 @@ class Board:
     def getUnitAttacks(self, unit, tilepos, availableattacks):
         if tilepos in self.unitattacks:
             self.unitattacks.remove(tilepos)
-        if self.tileOccupied(self.boardtiles[tilepos[0]][tilepos[1]]) and tilepos != unit.position:
-            availableattacks = 0
         self.unitattacks.append(tilepos)
         if availableattacks == 0:
             return
 
         availableattacks -= 1
 
-        if tilepos[0] + 1 < Constants.BOARDHEIGHT:
+        if tilepos[0] + 1 < Constants.BOARD_HEIGHT:
             self.getUnitAttacks(unit, [tilepos[0] + 1, tilepos[1]], availableattacks)
         if tilepos[0] - 1 >= 0:
             self.getUnitAttacks(unit, [tilepos[0] - 1, tilepos[1]], availableattacks)
-        if tilepos[1] + 1 < Constants.BOARDWIDTH:
+        if tilepos[1] + 1 < Constants.BOARD_WIDTH:
             self.getUnitAttacks(unit, [tilepos[0], tilepos[1] + 1], availableattacks)
         if tilepos[1] - 1 >= 0:
             self.getUnitAttacks(unit, [tilepos[0], tilepos[1] - 1], availableattacks)
@@ -255,7 +255,7 @@ class Board:
                     if mousepressed:
                         self.getUnitMoves(self.selectedUnit, self.selectedUnit.position, self.selectedUnit.currentSpeed)
                         if self.selectedUnit.availableAttacks > 0:
-                            self.getUnitAttacks(self.selectedUnit, self.selectedUnit.position, self.selectedUnit.currentSpeed + self.selectedUnit.range)
+                            self.getUnitAttacks(self.selectedUnit, self.selectedUnit.position, self.selectedUnit.range)
 
                     if not self.tileOccupied(self.currentSelection):
                         if self.currentSelection.position in self.unitmoves:
@@ -280,24 +280,26 @@ class Board:
         for move in self.unitmoves:
             self.boardtiles[move[0]][move[1]].highlight("transparentlightblue")
         for attack in self.unitattacks:
-            if attack not in self.unitmoves:
-                self.boardtiles[attack[0]][attack[1]].highlight("transparentred")
+            self.boardtiles[attack[0]][attack[1]].highlight("transparentred")
 
 
-    def displayBoard(self, mousepos):
+    def displayBoard(self, window, mousepos, interface):
         for height in range(0, len(self.boardtiles)):
             for width in range(0, len(self.boardtiles[0])):
                 self.boardtiles[height][width].displayTile()
-                #pygame.draw.rect(Window.SURFACE, Colors.colorlist['black'], self.boardtiles[height][width].rect, 2)
+                pygame.draw.rect(Window.SURFACE, Colors.colorlist['black'], self.boardtiles[height][width].rect, 1)
 
-        selectWidth = int((mousepos[0] - self.leftBorder) / Constants.TILESIZE)
-        selectHeight = int((mousepos[1] - self.topBorder) / Constants.TILESIZE)
-
-        if selectWidth >= 0 and Constants.BOARDWIDTH > 0 <= selectHeight < Constants.BOARDHEIGHT:
-            self.boardtiles[selectHeight][selectWidth].highlight("transparentblue")
+        if mousepos[0] > self.leftBorder and mousepos[1] > self.topBorder:
+            selectWidth = int((mousepos[0] - self.leftBorder) / Constants.TILE_SIZE)
+            selectHeight = int((mousepos[1] - self.topBorder) / Constants.TILE_SIZE)
+            if selectWidth >= 0 and selectWidth < Constants.BOARD_WIDTH and selectHeight >= 0 and selectHeight < Constants.BOARD_HEIGHT:
+                self.boardtiles[selectHeight][selectWidth].highlight("transparentblue")
+                unit = self.getUnit(self.boardtiles[selectHeight][selectWidth])
+                if unit is not None:
+                    interface.displayUnitInfo(window, unit.unitinfo, unit.position, unit.team)
 
         for move in self.buildmoves:
-            self.boardtiles[move[0]][move[1]].highlight('transparentlightblue')
+            self.boardtiles[move[0]][move[1]].highlight('transparentturqoise')
 
         self.displayUnitMoves()
         self.displayUnits()

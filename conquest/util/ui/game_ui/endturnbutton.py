@@ -7,4 +7,4 @@ class EndTurnButton(Button):
     command = "endTurn"
 
     def __init__(self, x, y):
-        Button.__init__(self, x, y, Constants.ENDTURNBUTTONWIDTH, Constants.ENDTURNBUTTONHEIGHT, self.command, "End Turn")
+        Button.__init__(self, x, y, Constants.END_TURN_BUTTON_WIDTH, Constants.END_TURN_BUTTON_HEIGHT, self.command, "End Turn")

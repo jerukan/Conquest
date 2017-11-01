@@ -18,7 +18,7 @@ class Tile:
     """
 
     def __init__(self, xpos, ypos, position):
-        self.rect = pygame.Rect((xpos, ypos), (Constants.TILESIZE, Constants.TILESIZE))
+        self.rect = pygame.Rect((xpos, ypos), (Constants.TILE_SIZE, Constants.TILE_SIZE))
 
         self.tileSprite = SpriteManager.tileList[random.randint(0, len(SpriteManager.tileList) - 1)]
         self.selected = False

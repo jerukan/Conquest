@@ -1,4 +1,5 @@
 TODO LIST
 
-- actually implementing teams
-- basic combat
+- giant tank man
+- tower
+- mage splash

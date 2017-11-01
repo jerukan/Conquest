@@ -10,14 +10,16 @@ class GameUnit:
     base class for a generic unit
     buildings have 0 speed for reasons
 
-    :parameter name (str): the name of the unit
-    :parameter stats (int[]): a list of stats in the exact following order: [maxHealth, attack, speed, attacksPerTurn, range, cost]
+    :parameter unitinfo: the basic stats and info for the units
+    :parameter sprite (Surface): the sprite of the unit, preferably pixel art
     :parameter team (Team()): what team this unit is on
     :parameter position (int[y, x]): the position of the unit on the board, with a reversed axis
-    :parameter sprite (Surface): the sprite of the unit, preferably pixel art
+
+    :var requiredBuilding: unitinfo of building required to build unit
     """
 
-    def __init__(self, unitinfo, sprite, team=None, position=None):
+    def __init__(self, unitinfo, sprite, team, position):
+        self.unitinfo = unitinfo
         self.name = unitinfo["name"]
 
         self.maxHealth = unitinfo["stats"][0]
@@ -39,7 +41,7 @@ class GameUnit:
 
         self.position = position
 
-
+        self.requiredBuilding = None
 
 
     def targetAction(self, targetunit):
@@ -49,7 +51,8 @@ class GameUnit:
 
 
     def onCreation(self):
-        pass
+        self.currentSpeed = 0
+        self.availableAttacks = 0
 
 
     def onTurnStart(self):

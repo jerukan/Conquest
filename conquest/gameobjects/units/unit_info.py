@@ -1,4 +1,6 @@
 from gameobjects.units.gameunit import UnitType
+from util.constants import Constants
+
 
 class UnitInfo:
     """
@@ -10,44 +12,66 @@ class UnitInfo:
         "name": "spearman",
         "type": UnitType.SOLDIER,
         "stats": [2, 2, 3, 1, 1, 2],
-        "buildable": True
+        "requiredunit": "armory",
+        "buildable": True,
+        "description": "Completely broken"
     }
     footman = {
         "name": "footman",
         "type": UnitType.SOLDIER,
         "stats": [2, 1, 2, 1, 1, 1],
-        "buildable": True
+        "requiredunit": None,
+        "buildable": True,
+        "description": "Ole reliable"
     }
     archer = {
         "name": "archer",
         "type": UnitType.SOLDIER,
         "stats": [1, 1, 2, 1, 2, 1],
-        "buildable": True
+        "requiredunit": None,
+        "buildable": True,
+        "description": "RUSH RUSH RUSH"
     }
     # BUILDING UNITS
     village = {
         "name": "village",
         "type": UnitType.BUILDING,
         "stats": [6, 0, 0, 0, 0, 0],
-        "buildable": False
+        "requiredunit": None,
+        "buildable": False,
+        "description": "Don\'t let this die"
     }
     goldmine = {
         "name": "gold mine",
         "type": UnitType.BUILDING,
-        "stats": [3, 0, 0, 0, 0, 5],
-        "buildable": True
-    }
-    wall = {
-        "name": "wall",
-        "type": UnitType.BUILDING,
-        "stats": [4, 0, 0, 0, 0, 3],
-        "buildable": True
+        "stats": [3, 0, 0, 0, 0, 7],
+        "requiredunit": None,
+        "buildable": True,
+        "description": "Produces " + str(Constants.GOLDMINE_PRODUCTION) + " gold a turn each"
     }
     farm = {
         "name": "farm",
         "type": UnitType.BUILDING,
         "stats": [3, 0, 0, 0, 0, 4],
-        "buildable": True
+        "requiredunit": None,
+        "buildable": True,
+        "description": "Expands unit cap by " + str(Constants.FARM_UNIT_EXPANSION)
+    }
+    armory = {
+        "name": "armory",
+        "type": UnitType.BUILDING,
+        "stats": [3, 0, 0, 0, 0, 5],
+        "requiredunit": None,
+        "buildable": True,
+        "description": "Allows production of spearmen"
+    }
+    magetower = {
+        "name": "mage tower",
+        "type": UnitType.BUILDING,
+        "stats": [4, 2, 0, 1, 2, 6],
+        "requiredunit": None,
+        "buildable": True,
+        "description": "Immobile and tanky defense building"
     }
 
     # in no particular order
@@ -57,6 +81,7 @@ class UnitInfo:
         "archer": archer,
         "village": village,
         "gold mine": goldmine,
-        "wall": wall,
-        "farm": farm
+        "farm": farm,
+        "armory": armory,
+        "mage tower": magetower
     }

@@ -48,7 +48,7 @@ class EventHandler:
 
     def displayGame(self, mousepos):
         self.window.fillSurface()
-        self.board.displayBoard(mousepos)
+        self.board.displayBoard(self.window, mousepos, self.uihandler.currentInterface)
         self.uihandler.displayInterface(self.window, mousepos)
 
 
@@ -91,7 +91,7 @@ class EventHandler:
 
                 self.uihandler.getInterfaceCommand(self.mousepos, self.mousepressed)
 
-                cmd = self.uihandler.runInterfaceCommands(team, self.board, self.mousepressed, self.blankClick())
+                cmd = self.uihandler.runInterfaceCommands(team, self.board, self.mousepressed, self.mousepos)
                 """FUCK"""
                 if cmd == "endTurn":
                     self.turnEnd = True

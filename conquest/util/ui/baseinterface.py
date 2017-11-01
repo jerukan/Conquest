@@ -29,7 +29,7 @@ class BaseInterface:
             self.commands[i] = False
 
 
-    def runCommands(self, team, board, mousepressed, blankclick):
+    def runCommands(self, team, board, mousepressed, mousepos):
         pass
 
 

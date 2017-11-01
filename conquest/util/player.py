@@ -52,6 +52,13 @@ class Player:
         return templist
 
 
+    def hasUnit(self, unitname):
+        for u in self.unitlist:
+            if u.name == unitname:
+                return True
+        return False
+
+
     def produceMoney(self):
         self.money += self.moneyProduction
 

@@ -8,7 +8,7 @@ class Commands:
     """
 
     '''all the game commands'''
-    def commandBuild(self, board, currentButton, player, position):
+    def commandBuild(self, board, currentButton, player, position, interface):
         # if the builded unit is a soldier
         if currentButton.unitname in UnitList.buildableSoldiers:
             if len(player.soldierlist) < player.maxUnits:
@@ -16,12 +16,12 @@ class Commands:
                     # these dict references are really messy fix later
                     if currentButton.unitname == UnitInfo.allUnitInfo[unit]["name"]:
                         buildedUnit = UnitInfo.allUnitInfo[unit]
-
-                        if not player.money - buildedUnit["stats"][5] < 0:    # compares costs
-                            if board.currentSelection.position in board.buildmoves:
-                                # what the fuck is happening
-                                board.unitlist.append(UnitList.allUnits[buildedUnit["name"]](player, position))
-                                player.deductMoney(buildedUnit["stats"][5])
+                        if player.hasUnit(buildedUnit["requiredunit"]) or buildedUnit["requiredunit"] is None:
+                            if not player.money - buildedUnit["stats"][5] < 0:    # compares costs
+                                if board.currentSelection.position in board.buildmoves:
+                                    # what the fuck is happening
+                                    board.unitlist.append(UnitList.allUnits[buildedUnit["name"]](player, position))
+                                    player.deductMoney(buildedUnit["stats"][5])
 
         # if the builded unit is a building
         elif currentButton.unitname in UnitList.buildableBuildings:
@@ -35,6 +35,11 @@ class Commands:
                             player.deductMoney(buildedUnit["stats"][5])
                             player.updateUnitlist(board.unitlist)
                             board.getBuildMoves(player.buildinglist)
+
+
+        else:
+            interface.currentButton = None
+            interface.commands["build"] = False
 
         board.unitlist[len(board.unitlist) - 1].onCreation()
 

@@ -16,8 +16,8 @@ class UIHandler:
         self.currentInterface.getCommand(mouseposition, mousepressed)
 
 
-    def runInterfaceCommands(self, team, board, mousepressed, blankclick):
-        return self.currentInterface.runCommands(team, board, mousepressed, blankclick)
+    def runInterfaceCommands(self, team, board, mousepressed, mousepos):
+        return self.currentInterface.runCommands(team, board, mousepressed, mousepos)
 
 
     def displayInterface(self, window, mouseposition):

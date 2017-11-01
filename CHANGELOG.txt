@@ -2,9 +2,15 @@
 HISTORY
 =======
 
-Current
+10/31/17
 ------
-* players
+* a few more gameplay additions
+    * unit caps
+    * required buildings (jankly)
+* farms and armory cool beans
+* performance optimizations
+    * less for loops ay lmao
+* using pygame was not a great idea
 
 
 10/24/17
